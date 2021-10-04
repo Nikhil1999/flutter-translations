@@ -1,6 +1,6 @@
 # flutter_translations
 
-A new Flutter project.
+A web app for generating localization string files for flutter & native android.
 
 ## Getting Started
 
