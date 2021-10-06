@@ -38,6 +38,7 @@ dependencies:
   file_picker: ^4.0.3
   csv: ^5.0.0
   xml: ^5.3.0
+  archive: ^3.1.2
 
 dev_dependencies:
   flutter_test:
