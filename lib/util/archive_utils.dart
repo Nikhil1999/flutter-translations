@@ -21,10 +21,10 @@ class ArchiveUtils {
           fileContent.codeUnits.length, fileContent.codeUnits));
     }
 
-    List<int>? byteList = ZipEncoder().encode(archiveZipFile);
+    List<int>? bytes = ZipEncoder().encode(archiveZipFile);
 
-    if (byteList != null) {
-      return byteList;
+    if (bytes != null) {
+      return bytes;
     } else {
       throw UnsupportedError('Unable to generate zip file');
     }
@@ -45,10 +45,10 @@ class ArchiveUtils {
           fileContent.codeUnits.length, fileContent.codeUnits));
     }
 
-    List<int>? byteList = ZipEncoder().encode(archiveZipFile);
+    List<int>? bytes = ZipEncoder().encode(archiveZipFile);
 
-    if (byteList != null) {
-      return byteList;
+    if (bytes != null) {
+      return bytes;
     } else {
       throw UnsupportedError('Unable to generate zip file');
     }
