@@ -1,13 +1,10 @@
 name: Flutter Build & Deploy
 
-# on:
-#   push:
-#     branches: [ main ]
-#   pull_request:
-#     branches: [ main ]
-
-# on:
-#   workflow_dispatch:
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
 
 jobs:
   build:
@@ -66,5 +63,5 @@ jobs:
       - name: Deploy Website
         uses: JamesIves/github-pages-deploy-action@4.1.5
         with:
-          branch: main
+          branch: release
           folder: build/web/
