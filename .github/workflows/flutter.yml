@@ -31,7 +31,7 @@ jobs:
         run: flutter pub get
         
       - name: Build Web Release
-        run: flutter build web
+        run: flutter build web --base-href /flutter-translations/
         
       - name: Zip Web Build
         uses: papeloto/action-zip@v1
