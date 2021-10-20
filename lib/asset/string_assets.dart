@@ -1,3 +1,0 @@
-class StringAssets {
-  StringAssets._();
-}
