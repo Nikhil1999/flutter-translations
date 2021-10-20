@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_translations/asset/color_assets.dart';
+import 'package:flutter_translations/asset/route_assets.dart';
+import 'package:flutter_translations/binding/home_binding.dart';
 import 'package:flutter_translations/screen/home_screen.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -21,7 +23,15 @@ class MyApp extends StatelessWidget {
         scaffoldBackgroundColor: ColorAssets.white,
       ),
       // home: const MyHomePage(title: 'Flutter Demo Home Page'),
-      home: HomeScreen(),
+      // home: HomeScreen(),
+      initialRoute: RouteAssets.home,
+      getPages: [
+        GetPage(
+          name: RouteAssets.home,
+          page: () => HomeScreen(),
+          binding: HomeBinding(),
+        )
+      ],
     );
   }
 }

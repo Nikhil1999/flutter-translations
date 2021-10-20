@@ -1,8 +1,13 @@
 // ignore_for_file: unnecessary_const
 
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:flutter_translations/asset/color_assets.dart';
+import 'package:flutter_translations/asset/icon_assets.dart';
+import 'package:flutter_translations/asset/theme_assets.dart';
 import 'package:flutter_translations/controller/home_controller.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -48,6 +53,7 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget appBar() {
     return Container(
       constraints: const BoxConstraints(minHeight: 75),
+      padding: const EdgeInsets.symmetric(vertical: 25),
       child: Row(
         mainAxisSize: MainAxisSize.max,
         mainAxisAlignment: MainAxisAlignment.start,
@@ -66,11 +72,11 @@ class _HomeScreenState extends State<HomeScreen> {
                     overlayColor:
                         MaterialStateProperty.all<Color>(Colors.transparent),
                   ),
-                  child: const Text(
+                  child: Text(
                     'Flutter Translations',
-                    style: TextStyle(
+                    style: ThemeAssets.headline6?.copyWith(
                       color: ColorAssets.primary,
-                      fontSize: 20,
+                      fontSize: 28,
                     ),
                   ),
                 ),
@@ -89,23 +95,57 @@ class _HomeScreenState extends State<HomeScreen> {
       mainAxisAlignment: MainAxisAlignment.start,
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        ElevatedButton(
+        ElevatedButton.icon(
           onPressed: selectFile,
           style: ButtonStyle(
             padding: MaterialStateProperty.all<EdgeInsets>(
-                const EdgeInsets.symmetric(horizontal: 40, vertical: 20)),
+                const EdgeInsets.symmetric(horizontal: 25, vertical: 20)),
             shape: MaterialStateProperty.all<OutlinedBorder>(
                 RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(10))),
+            elevation: MaterialStateProperty.all<double>(0),
           ),
-          child: const Text(
+          icon: Container(
+            margin: const EdgeInsets.only(right: 4),
+            child: SvgPicture.asset(
+              IconAssets.excelFile,
+              color: Colors.white,
+            ),
+            // child: const FaIcon(
+            //   FontAwesomeIcons.file,
+            //   size: 16,
+            // ),
+          ),
+          label: Text(
             'Pick File',
-            style: TextStyle(
+            style: ThemeAssets.button?.copyWith(
               color: ColorAssets.white,
               fontSize: 18,
             ),
           ),
-        )
+        ),
+        MouseRegion(
+          cursor: SystemMouseCursors.click,
+          child: GestureDetector(
+            onTap: () {},
+            child: SvgPicture.asset(
+              IconAssets.android,
+              color: Colors.white,
+              colorBlendMode: BlendMode.saturation,
+            ),
+          ),
+        ),
+        MouseRegion(
+          cursor: SystemMouseCursors.click,
+          child: GestureDetector(
+            onTap: () {},
+            child: SvgPicture.asset(
+              IconAssets.flutter,
+              color: Colors.white,
+              colorBlendMode: BlendMode.saturation,
+            ),
+          ),
+        ),
       ],
     );
   }
