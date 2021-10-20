@@ -1,0 +1,70 @@
+name: Flutter Build & Deploy
+
+# on:
+#   push:
+#     branches: [ main ]
+#   pull_request:
+#     branches: [ main ]
+
+on:
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+      - uses: actions/checkout@v2
+      
+      - name: Setup Java
+        uses: actions/setup-java@v1
+        with:
+          java-version: '12.x'
+
+      - name: Setup Flutter
+        uses: subosito/flutter-action@v1
+        with:
+          channel: stable
+      
+      - name: Setup App Version
+        run: echo 'APP_VERSION'=`awk '/version:/ || /version:/{print}' ./pubspec.yaml | awk -F' ' '{print $2}' | awk -F'+' '{print $1}'` >> $GITHUB_ENV
+          
+      - name: Download Dependencies
+        run: flutter pub get
+        
+      - name: Build Web Release
+        run: flutter build web
+        
+      - name: Zip Web Build
+        uses: papeloto/action-zip@v1
+        with:
+          files: build/web/
+          dest: web_release_v${{ env.APP_VERSION }}.zip
+        
+      - name: Create Release
+        id: app_release
+        uses: actions/create-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          tag_name: 'v${{ env.APP_VERSION }}'
+          release_name: 'Release v${{ env.APP_VERSION }}'
+          draft: false
+          prerelease: false
+          
+      - name: Upload Web Build
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ steps.app_release.outputs.upload_url }}
+          asset_path: web_release_v${{ env.APP_VERSION }}.zip
+          asset_name: web_release_v${{ env.APP_VERSION }}.zip
+          asset_content_type: application/zip
+          
+      - name: Deploy Website
+        uses: JamesIves/github-pages-deploy-action@4.1.5
+        with:
+          branch: main
+          folder: build/web/
