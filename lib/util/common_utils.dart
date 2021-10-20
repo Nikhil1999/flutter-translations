@@ -26,7 +26,9 @@ class CommonUtils {
       List<int> zipBytes =
           ArchiveUtils.createFlutterTranslationZipFromCsv(csvMap);
       downloadFile(zipBytes, AppConfig.flutterTranslationFileName);
-    } catch (e) {}
+    } catch (e) {
+      showErrorToast('Something went wrong. Please try again');
+    }
   }
 
   ///To download android translations
@@ -38,7 +40,9 @@ class CommonUtils {
       List<int> zipBytes =
           ArchiveUtils.createAndroidTranslationZipFromCsv(csvXml);
       downloadFile(zipBytes, AppConfig.androidTranslationFileName);
-    } catch (e) {}
+    } catch (e) {
+      showErrorToast('Something went wrong. Please try again');
+    }
   }
 
   ///To show success toast
